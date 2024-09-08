@@ -108,4 +108,4 @@ if uploaded_file:
         st.session_state.vectors = None
         st.session_state.count = 0
         delete_files_in_directory(dir_name)
-        st.write("Successfully deleted vectors embeddings. Create another by uploading another file")
+        st.write("Successfully deleted vectors embeddings. Create another by uploading another files")
