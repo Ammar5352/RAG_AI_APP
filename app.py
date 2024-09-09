@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.prompts import ChatPromptTemplate
@@ -10,11 +10,11 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains.retrieval import create_retrieval_chain
 from langchain_community.vectorstores.faiss import FAISS
-load_dotenv()
+#load_dotenv()
 
-os.environ['GROQ_API_KEY'] = os.getenv('GROQ_API_KEY')
-os.environ['HF_TOKEN'] = os.getenv('HF_TOKEN')
-os.environ['LANGCHAIN_API_KEY'] = os.getenv('LANGCHAIN_API_KEY')
+os.environ['GROQ_API_KEY'] = st.secrets["general"]["GROQ_API_KEY"]
+os.environ['HF_TOKEN'] = st.secrets["general"]["HF_TOKEN"]
+os.environ['LANGCHAIN_API_KEY'] = st.secrets["general"]["LANGCHAIN_API_KEY"]
 os.environ['LANGCHAIN_TRACING_V2'] = 'true'
 
 st.title('RAG Document Query AI App')
