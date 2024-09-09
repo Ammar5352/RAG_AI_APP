@@ -66,7 +66,7 @@ def vector_store_query():
         splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=500)
         text_splitter = splitter.split_documents(docs)
         embeddings = HuggingFaceEmbeddings()
-        vectors = Chroma.from_documents(text_splitter, embeddings)
+        vectors = FAISS.from_documents(text_splitter, embeddings)
         return vectors  
 
 if 'vectors' not in st.session_state:
