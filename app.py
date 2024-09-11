@@ -5,7 +5,7 @@ from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
-from langchain_chroma import Chroma
+#from langchain_chroma import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains.retrieval import create_retrieval_chain
@@ -92,8 +92,10 @@ if uploaded_file:
             try:
                 document_chain = create_stuff_documents_chain(llm, prompt)
                 retriever = st.session_state.vectors.as_retriever()
+                relevant_docs = retriever.get_relevant_documents(user_prompt)[:5]  # Limit to 5 most relevant docs
+                context = "\n".join([doc.page_content for doc in relevant_docs])
                 rag_chain = create_retrieval_chain(retriever, document_chain)
-                response = rag_chain.invoke({'input': user_prompt})
+                response = rag_chain.invoke({'input': user_prompt,'context':context})
                 st.write(response['answer'])
                 st.write("Response time:", time.process_time() - start)
 
